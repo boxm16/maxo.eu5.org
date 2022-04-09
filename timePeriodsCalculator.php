@@ -29,12 +29,15 @@
             <div class="row">
 
                 <div class="col-sm-5">
-                    <table id="periodCalculationTable:1" class="table"  >
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                        <center> დროის ორ მომენტს შორის ხანგრძლივობის გამოთვლა</center>   
-                        </th>
+                    <table>
+                        <tr>
+                            <td>
+                                <table class="table"  >
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">
+                                    <center> დროის ორ მომენტს შორის ხანგრძლივობის გამოთვლა</center>   
+                                    </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,20 +103,23 @@
                                 </td>
                             </tr>
                             <tr>
-
-                                <td>
-                                    <button>
-                                        ველის წაშლა
-                                    </button> 
-                                </td>
-
-                                <td>
-                                    <button>
-                                        ველის დამატება
+                                <td colspan="2">
+                                    <button class='btn btn-danger' style='width:100%'>
+                                       გამოთვლების ველის წაშლა
                                     </button> 
                                 </td>
                             </tr>
                         </tbody>
+                    </table>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-warning" style='width:100%' >   
+                                გამოთვლების  ველის დამატება
+                            </button>
+                        </td>
+                    </tr>
                     </table>
                 </div>
             </div>
