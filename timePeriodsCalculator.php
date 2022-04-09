@@ -29,7 +29,7 @@
             <div class="row">
 
                 <div class="col-sm-5">
-                    <table id="calculationTable" class="table"  >
+                    <table id="periodCalculationTable:1" class="table"  >
                         <thead>
                             <tr>
                                 <th colspan="2">
@@ -44,16 +44,15 @@
                                 </td>
                                 <td>
                                     <table>
-                                        <tr id="roundTr">
+                                        <tr>
                                             <td >
-                                                <input id="roundInputHour" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs(event)" onkeyup="incoming(event)" onfocus="this.select()">
+                                                <input id="startHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td >
-                                                <input id="roundInputMinute" class="input" type="number" value="00" oninput="adjastTimeInputs(event)" onkeyup="incoming(event)" onfocus="this.select()">
+                                                <input id="startMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td>
-
-                                                <input id="roundInputSecond" class="input" type="number" value="00" oninput="adjastTimeInputs(event)" onkeyup="incoming(event)" onfocus="this.select()">
+                                                <input id="startSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                         </tr>
                                     </table>
@@ -67,13 +66,13 @@
                                     <table>
                                         <tr id="roundTr">
                                             <td >
-                                                <input id="roundInputHour" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs(event)" onkeyup="incoming(event)" onfocus="this.select()">
+                                                <input id="endHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td >
-                                                <input id="roundInputMinute" class="input" type="number" value="00" oninput="adjastTimeInputs(event)" onkeyup="incoming(event)" onfocus="this.select()">
+                                                <input id="endMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td>
-                                                <input id="roundInputSecond" class="input" type="number" value="00" oninput="adjastTimeInputs(event)" onkeyup="incoming(event)" onfocus="this.select()">
+                                                <input id="endSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                         </tr>
                                     </table>
@@ -85,7 +84,7 @@
                                         <tr>
 
                                             <td style="widht:60%">
-                                                <button type="button" class="btn  btn-primary" style="width:100%;" onclick="checkAndCalculate()"><b>გამოთვლა</b></button>
+                                                <button type="button" class="btn  btn-primary" style="width:100%;" onclick="checkAndCalculatePeriod('1')"><b>გამოთვლა</b></button>
                                             </td>
                                         </tr>
 
@@ -97,7 +96,21 @@
                                     შედეგი
                                 </td>
                                 <td>
-                                    <label id="resultTime" style="widht:40px;font-size: 24px">00:00:00</label> 
+                                    <label id="periodCalculationResult:1" style="widht:40px;font-size: 24px">00:00:00</label> 
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td>
+                                    <button>
+                                        ველის წაშლა
+                                    </button> 
+                                </td>
+
+                                <td>
+                                    <button>
+                                        ველის დამატება
+                                    </button> 
                                 </td>
                             </tr>
                         </tbody>
@@ -105,5 +118,122 @@
                 </div>
             </div>
         </div>
+        <script>
+            function checkAndCalculatePeriod(id) {
+
+                let startHour = document.getElementById('startHour:' + id).value;
+                let startMinute = document.getElementById('startMinute:' + id).value;
+                let startSecond = document.getElementById('startSecond:' + id).value;
+                let endHour = document.getElementById('endHour:' + id).value;
+                let endMinute = document.getElementById('endMinute:' + id).value;
+                let endSecond = document.getElementById('endSecond:' + id).value;
+                let startTimeInSeconds = (startHour * 60 * 60) + (startMinute * 60) + (startSecond * 1);
+                let endTimeInSeconds = (endHour * 60 * 60) + (endMinute * 60) + (endSecond * 1);
+                let timeDifferenceInSeconds = endTimeInSeconds - startTimeInSeconds;
+
+                let hours = Math.floor(timeDifferenceInSeconds / 3600); // get hours
+                let minutes = Math.floor((timeDifferenceInSeconds - (hours * 3600)) / 60); // get minutes
+                let seconds = timeDifferenceInSeconds - (hours * 3600) - (minutes * 60); //  get seconds
+                let result;
+                if (timeDifferenceInSeconds < 0) {
+                    result = "დაწყების დრო უფრო გვიან არის ვიდრე დამთავრების დრო";
+                } else
+                {
+                    if (hours < 10) {
+                        hours = "0" + hours;
+                    }
+                    if (minutes < 10) {
+                        minutes = "0" + minutes;
+                    }
+                    if (seconds < 10) {
+                        seconds = "0" + seconds;
+                    }
+                    result = hours + ':' + minutes + ':' + seconds;
+                }
+
+                let resultDisplay = document.getElementById('periodCalculationResult:' + id);
+
+                resultDisplay.innerHTML = result;
+
+
+
+            }
+            function incoming(id) {
+                if (event.keyCode === 13) {
+                    checkAndCalculatePeriod(id);
+                }
+            }
+
+            function adjastTimeInputs(triggerElement) {
+                //   notes.innerHTML = "";
+                var code = triggerElement.split(":");
+                var targetType = code[0];
+                var targetId = code[1];
+
+                let hourInput = document.getElementById(targetType + "Hour:" + targetId);
+                let minuteInput = document.getElementById(targetType + "Minute:" + targetId);
+                let secondInput = document.getElementById(targetType + "Second:" + targetId);
+
+                if (secondInput.value == 60) {
+                    secondInput.value = 0;
+                    minuteInput.value = parseInt(minuteInput.value) + 1;
+
+                }
+                if (secondInput.value == -1) {
+                    minuteInput.value = parseInt(minuteInput.value) - 1;
+                    if (hourInput.value == 0 && minuteInput.value == -1) {
+                        secondInput.value = 0;
+                    } else {
+                        secondInput.value = 59;
+                    }
+                }
+                if (minuteInput.value == 60) {
+                    minuteInput.value = 0;
+                    timeInputHourPlusPlus(targetType, targetId);
+                }
+                if (minuteInput.value == -1) {
+                    minuteInput.value = 59;
+                    timeInputHourMinusMinus(targetType, targetId);
+                }
+                if (hourInput.value == -1) {
+                    hourInput.value = 0;
+                    //  notes.style.color = "red";
+                    // notes.innerHTML = "საათების 0 ზე ქვემოთ ჩამოსვლა დაუშვებელია";
+                    //  redNotes.innerHTML = "საათების 0 ზე ქვემოთ ჩამოსვლა დაუშვებელია";
+
+                }
+            }
+
+            function   timeInputHourPlusPlus(targetType, targetId) {
+                let hourInput = document.getElementById(targetType + "Hour:" + targetId);
+                var x = parseInt(hourInput.value) + 1
+                if (x < 10) {
+                    hourInput.value = "0" + x;
+                } else {
+                    hourInput.value = x;
+                }
+            }
+
+            function   timeInputHourMinusMinus(targetType, targetId) {
+                let hourInput = document.getElementById(targetType + "Hour:" + targetId);
+                let minuteInput = document.getElementById(targetType + "Minute:" + targetId);
+
+
+                var x = parseInt(hourInput.value) - 1
+                if (x < 0) {
+                    x = 0;
+                    hourInput.value = 0;
+                    minuteInput.value = 0;
+                    //notes.style.color = "red";
+                    // notes.innerHTML = "საათების 0 ზე ქვემოთ ჩამოსვლა დაუშვებელია";
+                    //  redNotes.innerHTML = "საათების 0 ზე ქვემოთ ჩამოსვლა დაუშვებელია";
+                }
+                if (x < 10) {
+                    hourInput.value = "0" + x;
+                } else {
+                    hourInput.value = x;
+                }
+            }
+        </script>
     </body>
 </html>
