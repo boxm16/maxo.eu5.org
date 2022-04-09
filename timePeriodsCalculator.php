@@ -29,17 +29,18 @@
             <div class="row">
 
                 <div class="col-sm-5">
-                    <table>
-                        <tr>
-                            <td>
-                                <table class="table"  >
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">
-                                    <center> დროის ორ მომენტს შორის ხანგრძლივობის გამოთვლა</center>   
-                                    </th>
-                        </tr>
-                        </thead>
+                    <table id='bigTable'>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table class="table"  >
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">
+                                        <center> დროის ორ მომენტს შორის ხანგრძლივობის გამოთვლა</center>   
+                                        </th>
+                            </tr>
+                            </thead>
                         <tbody>
                             <tr>
                                 <td>
@@ -105,7 +106,7 @@
                             <tr>
                                 <td colspan="2">
                                     <button class='btn btn-danger' style='width:100%'>
-                                       გამოთვლების ველის წაშლა
+                                        გამოთვლების ველის წაშლა
                                     </button> 
                                 </td>
                             </tr>
@@ -115,11 +116,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn btn-warning" style='width:100%' >   
+                            <button class="btn btn-warning" style='width:100%' onclick="addCalculationArea(2)">   
                                 გამოთვლების  ველის დამატება
                             </button>
                         </td>
                     </tr>
+                    </tbody>
                     </table>
                 </div>
             </div>
@@ -239,6 +241,94 @@
                 } else {
                     hourInput.value = x;
                 }
+
+            }
+            function addCalculationArea(areaId) {
+                var myHtmlContent = "<tr>" +
+                        "<td>" +
+                        " <table class=\"table\"  >" +
+                        "<thead>" +
+                        "<tr>" +
+                        "<th colspan=\"2\">" +
+                        "<center> დროის ორ მომენტს შორის ხანგრძლივობის გამოთვლა</center>" +
+                        "</th>" +
+                        "</tr>" +
+                        "</thead>" +
+                        " <tbody>" +
+                        " <tr>" +
+                        "<td>" +
+                        " დაწყების დრო" +
+                        "</td>" +
+                        "<td>" +
+                        "<table>" +
+                        "<tr>" +
+                        " <td >" +
+                        "<input id=\"startHour:1\" class=\"input\" type=\"number\" min=\"-1\" value=\"00\" oninput=\"adjastTimeInputs('start:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        " </td>" +
+                        "<td >" +
+                        " <input id=\"startMinute:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('start:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "</td>" +
+                        "<td>" +
+                        "<input id=\"startSecond:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('start:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "</td>" +
+                        "</tr>" +
+                        "</table>" +
+                        " </td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td>" +
+                        "დამთავრების დრო" +
+                        "</td>" +
+                        "<td colspan=\"2\">" +
+                        "<table>" +
+                        "   <tr id=\"roundTr\">" +
+                        "<td >" +
+                        "   <input id=\"endHour:1\" class=\"input\" type=\"number\" min=\"-1\" value=\"00\" oninput=\"adjastTimeInputs('end:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "</td>" +
+                        "  <td >" +
+                        "     <input id=\"endMinute:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('end:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        " </td>" +
+                        " <td>" +
+                        "    <input id=\"endSecond:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('end:1')\" onkeyup = \"incoming('1')\" onfocus=\"this.select()\">" +
+                        "</td>" +
+                        "  </tr>" +
+                        "</table>" +
+                        "  </td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td colspan=\"2\" style=\"padding:0px\">" +
+                        "<table style=\"width:100 % \" class=\"table\">" +
+                        "   <tr>" +
+                        "<td style=\"widht:60%\">" +
+                        "<button type=\"button\" class=\"btn  btn-primary\" style=\"width:100%;\" onclick=\"checkAndCalculatePeriod('1')\"><b>გამოთვლა</b></button>" +
+                        "</td>" +
+                        "</tr>" +
+                        "</table>" +
+                        "</td>" +
+                        " </tr>" +
+                        "<tr>" +
+                        "<td>" +
+                        "   შედეგი" +
+                        "</td>" +
+                        "<td>" +
+                        "<label id=\"periodCalculationResult:1\" style=\"widht:40px;font-size: 24px\">00:00:00</label> " +
+                        "</td>" +
+                        " </tr>" +
+                        "<tr>" +
+                        "<td colspan=\"2\">" +
+                        "<button class='btn btn-danger' style='width:100%'>" +
+                        " გამოთვლების ველის წაშლა" +
+                        "</button> " +
+                        "</td>" +
+                        "</tr>" +
+                        "</tbody>" +
+                        "</table>" +
+                        "</td>" +
+                        "</tr>";
+                var tableRef = document.getElementById('bigTable').getElementsByTagName('tbody')[0];
+
+                var newRow = tableRef.insertRow(tableRef.rows.length-1);
+                newRow.innerHTML = myHtmlContent;
             }
         </script>
     </body>
