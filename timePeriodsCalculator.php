@@ -123,7 +123,104 @@
                     </tr>
                     </tbody>
                     </table>
-                    <hr><hr><hr>
+                    <!------- --------------------------------------------------------- --->
+                    <hr>
+                    <table id='bigTable_2' style="background-color:lime">
+                        <tbody>
+                            <tr >
+                                <td>
+                                    <table class="table"  >
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">
+                                        <center>დროის მონაკვეთების გამოთვლები</center>   
+                                        </th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                            <tr >
+                                <td>
+                                    პირველი მონაკვეთი
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td >
+                                                <input id="timeHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                            </td>
+                                            <td >
+                                                <input id="timeMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                            </td>
+                                            <td>
+                                                <input id="timeSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ქმედება</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td><input type="radio" name="action" checked >&nbsp;<label>გამოკლება&nbsp;&nbsp; </label></td>
+                                             <td><input type="radio" name="action" >&nbsp;<label>დამატება&nbsp;&nbsp;</label></td>
+                                           
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    მეორე მონაკვეთი
+                                </td>
+                                <td colspan="2">
+                                    <table>
+                                        <tr id="roundTr">
+                                            <td >
+                                                <input id="endHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                            </td>
+                                            <td >
+                                                <input id="endMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                            </td>
+                                            <td>
+                                                <input id="endSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="padding:0px">
+                                    <table style="width:100%" class="table">
+                                        <tr>
+
+                                            <td style="widht:60%">
+                                                <button type="button" class="btn  btn-primary" style="width:100%;" onclick="checkAndCalculatePeriod('1')"><b>გამოთვლა</b></button>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    შედეგი
+                                </td>
+                                <td>
+                                    <label id="periodCalculationResult:1" style="widht:40px;font-size: 24px">00:00:00</label> 
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    </td>
+                    </tr>
+
+                    </tbody>
+                    </table>
+                    <hr><hr>
                 </div>
             </div>
         </div>
@@ -333,8 +430,8 @@
 
                 var newRow = tableRef.insertRow(tableRef.rows.length - 1);
                 newRow.innerHTML = myHtmlContent;
-               
-               newRow.setAttribute("id", "tr:"+calculationAreaCount, 0);
+
+                newRow.setAttribute("id", "tr:" + calculationAreaCount, 0);
             }
 
             function deleteCalculationArea(id) {
