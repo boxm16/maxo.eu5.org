@@ -31,7 +31,7 @@
                 <div class="col-sm-5">
                     <table id='bigTable'>
                         <tbody>
-                            <tr>
+                            <tr id='tr:1'>
                                 <td>
                                     <table class="table"  >
                                         <thead>
@@ -105,7 +105,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <button class='btn btn-danger' style='width:100%'>
+                                    <button class='btn btn-danger' style='width:100%' onclick="deleteCalculationArea('1')">
                                         გამოთვლების ველის წაშლა
                                     </button> 
                                 </td>
@@ -116,7 +116,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn btn-warning" style='width:100%' onclick="addCalculationArea(2)">   
+                            <button class="btn btn-warning" style='width:100%' onclick="addCalculationArea()">   
                                 გამოთვლების  ველის დამატება
                             </button>
                         </td>
@@ -127,6 +127,8 @@
             </div>
         </div>
         <script>
+
+            var calculationAreaCount = 1;
             function checkAndCalculatePeriod(id) {
 
                 let startHour = document.getElementById('startHour:' + id).value;
@@ -243,7 +245,8 @@
                 }
 
             }
-            function addCalculationArea(areaId) {
+            function addCalculationArea() {
+                calculationAreaCount++;
                 var myHtmlContent = "<tr>" +
                         "<td>" +
                         " <table class=\"table\"  >" +
@@ -263,13 +266,13 @@
                         "<table>" +
                         "<tr>" +
                         " <td >" +
-                        "<input id=\"startHour:1\" class=\"input\" type=\"number\" min=\"-1\" value=\"00\" oninput=\"adjastTimeInputs('start:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "<input id=\"startHour:" + calculationAreaCount + "\" class=\"input\" type=\"number\" min=\"-1\" value=\"00\" oninput=\"adjastTimeInputs('start:" + calculationAreaCount + "')\" onkeyup=\"incoming('" + calculationAreaCount + "')\" onfocus=\"this.select()\">" +
                         " </td>" +
                         "<td >" +
-                        " <input id=\"startMinute:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('start:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        " <input id=\"startMinute:" + calculationAreaCount + "\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('start:" + calculationAreaCount + "')\" onkeyup=\"incoming('" + calculationAreaCount + "')\" onfocus=\"this.select()\">" +
                         "</td>" +
                         "<td>" +
-                        "<input id=\"startSecond:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('start:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "<input id=\"startSecond:" + calculationAreaCount + "\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('start:" + calculationAreaCount + "')\" onkeyup=\"incoming('" + calculationAreaCount + "')\" onfocus=\"this.select()\">" +
                         "</td>" +
                         "</tr>" +
                         "</table>" +
@@ -283,13 +286,13 @@
                         "<table>" +
                         "   <tr id=\"roundTr\">" +
                         "<td >" +
-                        "   <input id=\"endHour:1\" class=\"input\" type=\"number\" min=\"-1\" value=\"00\" oninput=\"adjastTimeInputs('end:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "   <input id=\"endHour:" + calculationAreaCount + "\" class=\"input\" type=\"number\" min=\"-1\" value=\"00\" oninput=\"adjastTimeInputs('end:" + calculationAreaCount + "')\" onkeyup=\"incoming('" + calculationAreaCount + "')\" onfocus=\"this.select()\">" +
                         "</td>" +
                         "  <td >" +
-                        "     <input id=\"endMinute:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('end:1')\" onkeyup=\"incoming('1')\" onfocus=\"this.select()\">" +
+                        "     <input id=\"endMinute:" + calculationAreaCount + "\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('end:" + calculationAreaCount + "')\" onkeyup=\"incoming('" + calculationAreaCount + "')\" onfocus=\"this.select()\">" +
                         " </td>" +
                         " <td>" +
-                        "    <input id=\"endSecond:1\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('end:1')\" onkeyup = \"incoming('1')\" onfocus=\"this.select()\">" +
+                        "    <input id=\"endSecond:" + calculationAreaCount + "\" class=\"input\" type=\"number\" value=\"00\" oninput=\"adjastTimeInputs('end:" + calculationAreaCount + "')\" onkeyup = \"incoming('" + calculationAreaCount + "')\" onfocus=\"this.select()\">" +
                         "</td>" +
                         "  </tr>" +
                         "</table>" +
@@ -300,7 +303,7 @@
                         "<table style=\"width:100 % \" class=\"table\">" +
                         "   <tr>" +
                         "<td style=\"widht:60%\">" +
-                        "<button type=\"button\" class=\"btn  btn-primary\" style=\"width:100%;\" onclick=\"checkAndCalculatePeriod('1')\"><b>გამოთვლა</b></button>" +
+                        "<button type=\"button\" class=\"btn  btn-primary\" style=\"width:100%;\" onclick=\"checkAndCalculatePeriod('" + calculationAreaCount + "')\"><b>გამოთვლა</b></button>" +
                         "</td>" +
                         "</tr>" +
                         "</table>" +
@@ -311,12 +314,12 @@
                         "   შედეგი" +
                         "</td>" +
                         "<td>" +
-                        "<label id=\"periodCalculationResult:1\" style=\"widht:40px;font-size: 24px\">00:00:00</label> " +
+                        "<label id=\"periodCalculationResult:" + calculationAreaCount + "\" style=\"widht:40px;font-size: 24px\">00:00:00</label> " +
                         "</td>" +
                         " </tr>" +
                         "<tr>" +
                         "<td colspan=\"2\">" +
-                        "<button class='btn btn-danger' style='width:100%'>" +
+                        "<button class='btn btn-danger' style='width:100%' onclick=\"deleteCalculationArea('" + calculationAreaCount + "')\">" +
                         " გამოთვლების ველის წაშლა" +
                         "</button> " +
                         "</td>" +
@@ -327,8 +330,14 @@
                         "</tr>";
                 var tableRef = document.getElementById('bigTable').getElementsByTagName('tbody')[0];
 
-                var newRow = tableRef.insertRow(tableRef.rows.length-1);
+                var newRow = tableRef.insertRow(tableRef.rows.length - 1);
                 newRow.innerHTML = myHtmlContent;
+               
+               newRow.setAttribute("id", "tr:"+calculationAreaCount, 0);
+            }
+
+            function deleteCalculationArea(id) {
+                document.getElementById("tr:" + id).innerHTML = "";
             }
         </script>
     </body>
