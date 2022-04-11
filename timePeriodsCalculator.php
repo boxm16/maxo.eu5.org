@@ -146,13 +146,13 @@
                                     <table>
                                         <tr>
                                             <td >
-                                                <input id="timeHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                                <input id="firstTimeHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('firstTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td >
-                                                <input id="timeMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                                <input id="firstTimeMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('firstTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td>
-                                                <input id="timeSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('start:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                                <input id="firstTimeSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('firstTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                         </tr>
                                     </table>
@@ -163,9 +163,8 @@
                                 <td>
                                     <table>
                                         <tr>
-                                            <td><input type="radio" name="action" checked >&nbsp;<label>გამოკლება&nbsp;&nbsp; </label></td>
-                                             <td><input type="radio" name="action" >&nbsp;<label>დამატება&nbsp;&nbsp;</label></td>
-                                           
+                                            <td><input id='minus' type="radio" name="action" checked >&nbsp;<label>გამოკლება&nbsp;&nbsp; </label></td>
+                                            <td><input id='plus' type="radio" name="action" >&nbsp;<label>დამატება&nbsp;&nbsp;</label></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -178,13 +177,13 @@
                                     <table>
                                         <tr id="roundTr">
                                             <td >
-                                                <input id="endHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                                <input id="secondTimeHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('secondTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td >
-                                                <input id="endMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                                <input id="secondTimeMinute:1" class="input" type="number" value="00" oninput="adjastTimeInputs('secondTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                             <td>
-                                                <input id="endSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('end:1')" onkeyup="incoming('1')" onfocus="this.select()">
+                                                <input id="secondTimeSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('secondTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
                                         </tr>
                                     </table>
@@ -196,7 +195,7 @@
                                         <tr>
 
                                             <td style="widht:60%">
-                                                <button type="button" class="btn  btn-primary" style="width:100%;" onclick="checkAndCalculatePeriod('1')"><b>გამოთვლა</b></button>
+                                                <button type="button" class="btn  btn-primary" style="width:100%;" onclick="calculateTime()"><b>გამოთვლა</b></button>
                                             </td>
                                         </tr>
 
@@ -209,7 +208,7 @@
                                     შედეგი
                                 </td>
                                 <td>
-                                    <label id="periodCalculationResult:1" style="widht:40px;font-size: 24px">00:00:00</label> 
+                                    <label id="timeResult" style="widht:40px;font-size: 24px">00:00:00</label> 
                                 </td>
                             </tr>
 
@@ -262,10 +261,8 @@
                 let resultDisplay = document.getElementById('periodCalculationResult:' + id);
 
                 resultDisplay.innerHTML = result;
-
-
-
             }
+
             function incoming(id) {
                 if (event.keyCode === 13) {
                     checkAndCalculatePeriod(id);
@@ -436,6 +433,48 @@
 
             function deleteCalculationArea(id) {
                 document.getElementById("tr:" + id).innerHTML = "";
+            }
+            //---------------------------
+            function calculateTime() {
+                let firstTimeInSeconds = (document.getElementById('firstTimeHour:1').value * 60 * 60) + (document.getElementById('firstTimeMinute:1').value * 60) + (document.getElementById('firstTimeSecond:1').value * 1);
+                let secondTimeInSeconds = (document.getElementById('secondTimeHour:1').value * 60 * 60) + (document.getElementById('secondTimeMinute:1').value * 60) + (document.getElementById('secondTimeSecond:1').value * 1);
+                let resultInSeconds;
+                if (minus.checked) {
+                    resultInSeconds = firstTimeInSeconds - secondTimeInSeconds;
+                }
+                if (plus.checked) {
+                    resultInSeconds = firstTimeInSeconds + secondTimeInSeconds;
+                }
+                let result;
+
+                if (resultInSeconds < 0) {
+
+                    result = "პირველი მოკვეთი ურო მოკლეა ვიდრე მეორე (გამოკლებული) ";
+                } else
+                {
+
+
+                    let hours = Math.floor(resultInSeconds / 3600); // get hours
+                    let minutes = Math.floor((resultInSeconds - (hours * 3600)) / 60); // get minutes
+                    let seconds = resultInSeconds - (hours * 3600) - (minutes * 60); //  get seconds
+
+
+
+                    if (hours < 10) {
+                        hours = "0" + hours;
+                    }
+                    if (minutes < 10) {
+                        minutes = "0" + minutes;
+                    }
+                    if (seconds < 10) {
+                        seconds = "0" + seconds;
+                    }
+                    result = hours + ':' + minutes + ':' + seconds;
+                }
+                let resultDisplay = document.getElementById('timeResult');
+
+                resultDisplay.innerHTML = result;
+
             }
         </script>
     </body>
