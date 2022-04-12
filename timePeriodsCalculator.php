@@ -107,7 +107,7 @@
                                                 <label id="periodCalculationResult:1" style="widht:40px;font-size: 24px">00:00:00</label> 
                                             </td>
                                             <td>
-                                                <button style='width:100%; background-color:skyblue'>Copy</button>
+                                                <button id="periodCalculationResultCopy:1" style='width:100%; background-color:skyblue' onclick="copyResult('periodCalculationResult:1')">Copy</button>
                                             </td>
                                         </tr>
                                     </table>
@@ -157,7 +157,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <button style='background-color: blue'>
+                                                <button style='background-color: skyblue' onclick="pasteCopyBuffer('1')">
                                                     Paste
                                                 </button> 
                                             </td>
@@ -194,7 +194,7 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <button style='background-color: blue'>
+                                                <button style='background-color: skyblue' onclick="pasteCopyBuffer('2')">
                                                     Paste
                                                 </button> 
                                             </td>
@@ -248,6 +248,7 @@
         <script>
 
             var calculationAreaCount = 1;
+            var copyBuffer = "";
             function checkAndCalculatePeriod(id) {
 
                 let startHour = document.getElementById('startHour:' + id).value;
@@ -430,8 +431,17 @@
                         "<td>" +
                         "   შედეგი" +
                         "</td>" +
+                        " <td>" +
+                        "      <table width='100%'>" +
+                        "<tr>" +
                         "<td>" +
                         "<label id=\"periodCalculationResult:" + calculationAreaCount + "\" style=\"widht:40px;font-size: 24px\">00:00:00</label> " +
+                        "</td>" +
+                        " <td>" +
+                        " <button id=\"periodCalculationResultCopy:" + calculationAreaCount + "\" style='width:100%; background-color:skyblue' onclick=\"copyResult('periodCalculationResult:" + calculationAreaCount + "')\">Copy</button>" +
+                        "</td>" +
+                        "</tr>" +
+                        " </table>" +
                         "</td>" +
                         " </tr>" +
                         "<tr>" +
@@ -496,7 +506,24 @@
                 let resultDisplay = document.getElementById('timeResult');
 
                 resultDisplay.innerHTML = result;
-
+            }
+            function copyResult(id) {
+                let a = document.getElementById(id);
+                copyBuffer = a.innerHTML;
+            }
+            function pasteCopyBuffer(id) {
+                let time = copyBuffer.split(":");
+                if (id == '1') {
+                    document.getElementById('firstTimeHour:1').value = time[0];
+                    document.getElementById('firstTimeMinute:1').value = time[1];
+                    document.getElementById('firstTimeSecond:1').value = time[2];
+                }
+                if (id == '2') {
+                    document.getElementById('secondTimeHour:1').value = time[0];
+                    document.getElementById('secondTimeMinute:1').value = time[1];
+                    document.getElementById('secondTimeSecond:1').value = time[2];
+                }
+                console.log(copyBuffer);
             }
         </script>
     </body>
