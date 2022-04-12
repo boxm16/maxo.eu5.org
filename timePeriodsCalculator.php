@@ -97,11 +97,22 @@
                             </tr>
                             <tr>
                                 <td>
-                                    შედეგი
+                                    შედეგი 
+
                                 </td>
                                 <td>
-                                    <label id="periodCalculationResult:1" style="widht:40px;font-size: 24px">00:00:00</label> 
+                                    <table width='100%'>
+                                        <tr>
+                                            <td>
+                                                <label id="periodCalculationResult:1" style="widht:40px;font-size: 24px">00:00:00</label> 
+                                            </td>
+                                            <td>
+                                                <button style='width:100%; background-color:skyblue'>Copy</button>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
+
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -145,6 +156,11 @@
                                 <td>
                                     <table>
                                         <tr>
+                                            <td>
+                                                <button style='background-color: blue'>
+                                                    Paste
+                                                </button> 
+                                            </td>
                                             <td >
                                                 <input id="firstTimeHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('firstTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
@@ -154,6 +170,7 @@
                                             <td>
                                                 <input id="firstTimeSecond:1" class="input" type="number" value="00" oninput="adjastTimeInputs('firstTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
+
                                         </tr>
                                     </table>
                                 </td>
@@ -175,7 +192,12 @@
                                 </td>
                                 <td colspan="2">
                                     <table>
-                                        <tr id="roundTr">
+                                        <tr>
+                                            <td>
+                                                <button style='background-color: blue'>
+                                                    Paste
+                                                </button> 
+                                            </td>
                                             <td >
                                                 <input id="secondTimeHour:1" class="input" type="number" min="-1" value="00" oninput="adjastTimeInputs('secondTime:1')" onkeyup="incoming('1')" onfocus="this.select()">
                                             </td>
@@ -449,7 +471,7 @@
 
                 if (resultInSeconds < 0) {
 
-                    result = "პირველი მოკვეთი ურო მოკლეა ვიდრე მეორე (გამოკლებული) ";
+                    result = "პირველი მონაკვეთი უფრო მოკლეა ვიდრე მეორე (გამოკლებული) ";
                 } else
                 {
 
