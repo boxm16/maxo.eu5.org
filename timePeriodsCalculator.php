@@ -241,7 +241,7 @@
 
                     </tbody>
                     </table>
-                    <hr><hr>
+                    <hr><hr> <hr><hr>
                 </div>
             </div>
         </div>
